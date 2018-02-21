@@ -4,16 +4,16 @@ from envirophat import motion
 from explorerhat import motor
 
 BASE_X, BASE_Y, BASE_Z = motion.accelerometer()
-motor.two.invert()
+motor.one.invert()
 
 try:
   while True:
     x, y, z = motion.accelerometer()
     delta_angle = round(100*(y-BASE_Y))
     if delta_angle < 0:
-      motor.backwards(min(100, 3*abs(delta_angle)))
+      motor.backwards(min(100, 4*abs(delta_angle)))
     elif delta_angle > 0:
-      motor.forwards(min(100, 3*delta_angle))
+      motor.forwards(min(100, 4*delta_angle))
     else:
       motor.stop()
     # clamp motor speed between -100 and 100
