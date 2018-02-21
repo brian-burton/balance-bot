@@ -1,4 +1,5 @@
-import sys, time
+import sys
+from time import sleep
 from envirophat import motion
 from explorerhat import motor
 
@@ -8,7 +9,7 @@ try:
   while True:
     x, y, z = motion.accelerometer()
     print(round(100*y)
-    time.sleep(0.2)
+    sleep(0.2)
 except KeyboardInterrupt:
   motor.stop()
   sys.exit()
