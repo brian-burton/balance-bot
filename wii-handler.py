@@ -1,12 +1,16 @@
 import cwiid, time, sys, socket
 
 try:
-  print("Opening socket")
+  #print("Opening socket")
   clientsocket = socket.socket()
-  clientsocket.connect(('localhost', 8088))
-  print("Socket open")
-except:
-  print("Couldn't open socket")
+  result = -1
+  while result != 0:
+    result = clientsocket.connect_ex(('localhost', 8088))
+    #print(result)
+    time.sleep(0.5)
+  #print("Socket open")
+except Exception as e:
+  #print("Couldn't open socket: {0}".format(e))
   sys.exit(1)
 
 wii = None
@@ -14,8 +18,9 @@ while not wii:
     try:
         wii = cwiid.Wiimote()
     except:
-        print("Hold down Wiimote buttons")
-print("Connected to Wiimote")
+        pass
+        #print("Hold down Wiimote buttons")
+#print("Connected to Wiimote")
 
 wii.rpt_mode = cwiid.RPT_ACC | cwiid.RPT_BTN
 
@@ -48,4 +53,5 @@ while True:
       clientsocket.send(direction.encode())
       old_dir = direction
   except Exception as e:
-    print("Couldn't send button status: {0}".format(e))
+    pass
+    #print("Couldn't send button status: {0}".format(e))
